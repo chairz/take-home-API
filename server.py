@@ -7,15 +7,16 @@ mgc = pymongo.MongoClient(host='localhost', port=27017)
 db = mgc.test
 teacher_student_table = db.teacher_student_table
 suspend_student_table = db.suspend_student_table
-#teacher_student_table.drop()
-#suspend_student_table.drop()
+teacher_student_table.drop()
+suspend_student_table.drop()
 
 app = Flask(__name__)
 
 @app.route('/api/register', methods=['POST'])
 def register():
 	register_form = request.json
-	if 'teacher' not in register_form or 'students' not in register_form:
+	print(len(register_form))
+	if 'teacher' not in register_form or 'students' not in register_form or len(register_form) != 2 :
 		return jsonify({'message':'Invalid Request!'}), 404 
 
 	result = teacher_student_table.find_one({'teacher':register_form['teacher']})
@@ -61,7 +62,7 @@ def suspend():
 	#check if the student has already been suspended to avoid duplicate entries
 	result = suspend_student_table.find_one({'student':suspend_form['student']})
 	if result:
-		return jsonify({'message':'student:{} has already been suspended before'.format(suspend_form['student'])}), 200
+		return jsonify({'message':'student:{} is already on suspension'.format(suspend_form['student'])}), 200
 
 	suspend_student_table.insert_one({'student':suspend_form['student']})
 	return jsonify({'message':'success'}), 204
