@@ -15,7 +15,6 @@ app = Flask(__name__)
 @app.route('/api/register', methods=['POST'])
 def register():
 	register_form = request.json
-	print(len(register_form))
 	if 'teacher' not in register_form or 'students' not in register_form or len(register_form) != 2 :
 		return jsonify({'message':'Invalid Request!'}), 404 
 
