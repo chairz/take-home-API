@@ -14,3 +14,6 @@ $ python3 server.py
 You may be required to install some python modules that are used to run this script eg. pymongo, flask. You can use the python package manager `pip3 install <missing package>` to install the modules.
 
 The server runs on `port:8082` and mongodb runs on `port:27017` by default.
+
+# Testing
+Unit tests are located under `tests` folder and can be executed by running `runtests.sh`. Ensure that the **server is running before executing the testcases.**
