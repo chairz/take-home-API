@@ -83,6 +83,9 @@ def notifications():
 	metioned_list = handle_notification(notification)
 	students = remove_suspended_student(students + metioned_list)
 
+	#remove possible duplicates caused by mentioning and being in registered list of the teacher
+	students = list(set(students))
+
 	return jsonify({'recipents':students}), 200
 
 def handle_notification(notification):
